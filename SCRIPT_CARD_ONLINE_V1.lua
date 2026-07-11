@@ -597,7 +597,6 @@ else
         "✨ | UNLIMITED SEND (REGULAR|GOLD|LEGENDARY) ",
         "✨ | CHANGE QUANTITY CARD",
 		"✨ | CHANGE QUANTITY CARD INSTAN",
-		"✨️ | CARD PACK UNLOCK ",
         "🔚 | BACK"
     }, nil, 
 Header .. Get_Account_Info())
@@ -609,9 +608,6 @@ elseif menu == 2 then
 elseif menu == 3 then
     Change_Quantity_Instan()
 elseif menu == 4 then
-    gg.alert("🎫 Go to Golden Ticket and open Reward Coupon No. 29")
-    Freeze_Reward_Coupon()
-elseif menu == 5 then
     Exit_Script()
 end
 end
