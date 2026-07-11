@@ -171,6 +171,128 @@ end
 
 end
 
+USER_NAME = "-"
+USER_EXPIRED = "-"
+USER_LOADED = false
+function Load_User_Info()
+    local url = "https://raw.githubusercontent.com/Oiim-TS/DATABASE/refs/heads/main/LICENSE_KEYS_CARD"
+
+    local response = gg.makeRequest(url)
+
+    if not response or response.code ~= 200 then
+        return false
+    end
+
+    local myDevice = getDeviceID() -- function milikmu
+
+    for line in response.content:gmatch("[^\r\n]+") do
+        local name, code, device, expired =
+            line:match("^([^|]+)|([^|]+)|([^|]+)|([^|]+)$")
+
+        if device == myDevice then
+            USER_NAME = name
+            USER_EXPIRED = expired
+            return true
+        end
+    end
+
+    return false
+end
+
+local function getDateTime()
+    local days = {
+        "Minggu", "Senin", "Selasa", "Rabu",
+        "Kamis", "Jumat", "Sabtu"
+    }
+
+    local months = {
+        "Januari", "Februari", "Maret", "April",
+        "Mei", "Juni", "Juli", "Agustus",
+        "September", "Oktober", "November", "Desember"
+    }
+    local t = os.date("*t")
+
+    return string.format(
+        "%s, %02d %s %04d | ⏱️ %02d:%02d",
+        days[t.wday],
+        t.day,
+        months[t.month],
+        t.year,
+        t.hour,
+        t.min
+    )
+end
+
+function GetRemainingTime(expired)
+
+    local y, m, d, h, mi, s =
+        expired:match("(%d+)%-(%d+)%-(%d+) (%d+):(%d+):(%d+)")
+
+    if not y then
+        return "UNKNOWN"
+    end
+
+    local expireTime = os.time({
+        year = tonumber(y),
+        month = tonumber(m),
+        day = tonumber(d),
+        hour = tonumber(h),
+        min = tonumber(mi),
+        sec = tonumber(s)
+    })
+
+    local remain = expireTime - os.time()
+
+    if remain <= 0 then
+        return "EXPIRED"
+    end
+
+    local days = math.floor(remain / 86400)
+    local hours = math.floor((remain % 86400) / 3600)
+    local mins = math.floor((remain % 3600) / 60)
+
+    return string.format("%dD %dH %dM", days, hours, mins)
+end
+
+function Get_Account_Info()
+
+    local info
+    if USER_EXPIRED == "SAMPAI DIA CAPE DAN PERGI" then
+        info = string.format(
+            "👤 %s\n📅 %s\n⏳ %s\n", 
+            USER_NAME or "-",
+			getDateTime(),
+			"LIFETIME ♾️"
+        )
+	elseif USER_EXPIRED == "UNLIMITED" then
+        info = string.format(
+            "👤 %s\n📅 %s\n⏳ %s\n", 
+            USER_NAME or "-",
+			getDateTime(),
+			"LIFETIME ♾️"
+		)
+		elseif USER_EXPIRED == "LIFETIME" then
+        info = string.format(
+            "👤 %s\n📅 %s\n⏳ %s\n", 
+            USER_NAME or "-",
+			getDateTime(),
+			"LIFETIME ♾️"
+		)
+    else
+        info = string.format(
+            "👤 %s\n📅 %s\n⏳ %s\n",
+            USER_NAME or "-",
+			getDateTime(),
+            USER_EXPIRED.."| "..GetRemainingTime(USER_EXPIRED or "")
+        )
+    end
+
+    return string.format(
+[==[
+%s	
+]==], info)
+
+end
 
 function Unlimited_Send()
     gg.clearResults()
@@ -306,7 +428,7 @@ function Change_Quantity()
 	local totalFound = 0
     for _, anchor in ipairs(anchors) do
         gg.clearResults()
-		LoadingAuto("Searching Data" .. anchors .. "...", 2)
+		LoadingAuto("Searching Data", 2)
         gg.searchNumber(
             anchor .. ";" .. cari .. ":29",
             gg.TYPE_DWORD
@@ -391,7 +513,7 @@ function Change_Quantity_Instan()
 
                 gg.clearResults()
 				gg.toast("Duplicate Card : " .. cari)
-				LoadingAuto("Searching Data" .. anchors .. "...", 2)
+				LoadingAuto("Searching Data", 2)
                 gg.searchNumber(
                     anchor .. ";" .. cari .. ":29",
                     gg.TYPE_DWORD
@@ -455,6 +577,22 @@ function LoadingAuto(text, speed)
     end
 end
 function menuUtama()
+if not USER_LOADED then
+        Load_User_Info()
+        USER_LOADED = true
+    end
+	local Header
+
+if USER_EXPIRED == "SAMPAI DIA CAPE DAN PERGI" then
+    Header =
+    " 💻 SCRIPT By RR | RDHT\n" ..
+    " 🤝 SUPPORTED By : MF HOST\n" ..
+    "════════════════\n"
+else
+    Header =
+    " 💻SCRIPT BY RR | RDHT\n" ..
+    "════════════════\n"
+	end
     local menu = gg.choice({
         "✨ | UNLIMITED SEND (REGULAR|GOLD|LEGENDARY) ",
         "✨ | CHANGE QUANTITY CARD",
