@@ -8,169 +8,6 @@ gg.alert([[
     Jalankan ➞ Masukkan Jumlah Batas Atas dan Bawah ➞ Tunggu Loading
 ]])
 
-function Freeze_Reward_Coupon()
-gg.clearResults()
-gg.clearList()
-
--- ===== MENU RANGE MEMORI =====
-local GEM = "💾"
-
-local function pretty(t)
-    return GEM .. "  " .. t
-end
-
-local labels = {
-    pretty("Ca + A"),
-    pretty("O"),
-    pretty("Ca + A + O"),
-}
-
-local ranges = {
-    gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS,                      -- Ca + A
-    gg.REGION_OTHER,                                             -- O
-    gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS | gg.REGION_OTHER    -- Ca + A + O
-}
-
-local choice = gg.choice(labels, nil, " ✅ Select Memory Range")
-
-if not choice then
-    gg.toast("❌ Cancelled")
-    os.exit()
-end
-
-gg.setRanges(ranges[choice])
-gg.toast("✅ Range Set")
-
--- ===== SCRIPT ASLI KAMU =====
-gg.getValues({
-    { address = 0xABCDEF12, flags = gg.TYPE_DWORD }
-})
-
-gg.searchNumber(
-    "1970225964;1599361808;1936025667;65537",
-    gg.TYPE_DWORD
-)
-
-gg.refineNumber("1970225964", gg.TYPE_DWORD)
-
-n = gg.getResultCount()
-jz = gg.getResults(n)
-
-
-  for i = 1, n do
-    gg.addListItems({[1] = {address = jz[i].address - 8,flags = gg.TYPE_DWORD,freeze = true,value = "0", name = "FREEZE_REWARD_01",gg.TYPE_DWORD}})
-    gg.addListItems({[1] = {address = jz[i].address - 12,flags = gg.TYPE_DWORD,freeze = true,value = "0",name = "FREEZE_REWARD_02", gg.TYPE_DWORD}})
-    gg.addListItems({[1] = {address = jz[i].address - 16,flags = gg.TYPE_DWORD,freeze = true,value = "0",name = "FREEZE_REWARD_03", gg.TYPE_DWORD}})
-  end 
-  gg.clearResults()
-  Change_Reward_Copon()
-  gg.alert(" 🥶 FREEZE COUPON SUCCESSFUL✅") 
-end
-
-function Change_Reward_Copon()
-
-gg.searchNumber("29;1970225964;7631471;1::", gg.TYPE_DWORD)
-
-gg.refineNumber("29", gg.TYPE_DWORD)
-
-local input = gg.prompt(
-    {"Masukkan nilai Modified_8:"},
-    {"2"},
-    {"number"}
-)
-
-if not input then
-    gg.toast("Dibatalkan")
-    return
-end
-
-local modified8 = tonumber(input[1])
-
-local results = gg.getResults(1)
-
-if #results == 0 then
-    gg.alert("Value not found! Please try again.")
-    return -- Stops script execution if nothing is found
-else
- 
- local v_1 = {}  
-v_1[1] = {}
-v_1[1].address = results[1].address + 0x10
-v_1[1].flags = gg.TYPE_DWORD
-v_1[1].value = "72614316h"
-v_1[1].name = "Modified_1"
-v_1[1].freeze = false
-gg.setValues(v_1)
-gg.addListItems(v_1) 
-local e_1 = {}
-e_1[1] = {}
-e_1[1].address = results[1].address + 0x14
-e_1[1].flags = gg.TYPE_DWORD
-e_1[1].value = "505F4364h"
-e_1[1].name = "Modified_2"
-e_1[1].freeze = false
-gg.setValues(e_1)
-gg.addListItems(e_1) 
-local p_1 = {}
-p_1[1] = {}
-p_1[1].address = results[1].address + 0x18
-p_1[1].flags = gg.TYPE_DWORD
-p_1[1].value = "356B6361h"
-p_1[1].name = "Modified_3"
-p_1[1].freeze = false
-gg.setValues(p_1)
-gg.addListItems(p_1) 
-local o_1 = {}
-o_1[1] = {}
-o_1[1].address = results[1].address + 0x1C
-o_1[1].flags = gg.TYPE_DWORD
-o_1[1].value = "00000000h"
-o_1[1].name = "Modified_4"
-o_1[1].freeze = false
-gg.setValues(o_1)
-gg.addListItems(o_1) 
-local ha_1 = {}
-ha_1[1] = {}
-ha_1[1].address = results[1].address + 0x20
-ha_1[1].flags = gg.TYPE_DWORD
-ha_1[1].value = "00000000h"
-ha_1[1].name = "Modified_5"
-ha_1[1].freeze = false
-gg.setValues(ha_1)
-gg.addListItems(ha_1) 
-local pa_1 = {}
-pa_1[1] = {}
-pa_1[1].address = results[1].address + 0x24
-pa_1[1].flags = gg.TYPE_DWORD
-pa_1[1].value = "00000000h"
-pa_1[1].name = "Modified_6"
-pa_1[1].freeze = false
-gg.setValues(pa_1)
-gg.addListItems(pa_1) 
-local ya_1 = {}
-ya_1[1] = {}
-ya_1[1].address = results[1].address + 0x28
-ya_1[1].flags = gg.TYPE_DWORD
-ya_1[1].value = 0
-ya_1[1].name = "Modified_7"
-ya_1[1].freeze = false
-gg.setValues(ya_1)
-gg.addListItems(ya_1) 
-local ya_2 = {}
-ya_2[1] = {}
-ya_2[1].address = results[1].address + 0x2C
-ya_2[1].flags = gg.TYPE_DWORD
-ya_2[1].value = modified8
-ya_2[1].name = "Modified_8"
-ya_2[1].freeze = false
-gg.setValues(ya_2)
-gg.addListItems(ya_2)   
- 
- 
-end
-
-end
-
 USER_NAME = "-"
 USER_EXPIRED = "-"
 USER_LOADED = false
@@ -259,28 +96,28 @@ function Get_Account_Info()
     local info
     if USER_EXPIRED == "SAMPAI DIA CAPE DAN PERGI" then
         info = string.format(
-            "👤 %s\n📅 %s\n⏳ %s\n", 
+            "👤 %s\n📅 %s\n⏳ %s", 
             USER_NAME or "-",
 			getDateTime(),
-			"LIFETIME ♾️"
+			USER_EXPIRED or "-"
         )
 	elseif USER_EXPIRED == "UNLIMITED" then
         info = string.format(
-            "👤 %s\n📅 %s\n⏳ %s\n", 
+            "👤 %s\n📅 %s\n⏳ %s", 
             USER_NAME or "-",
 			getDateTime(),
-			"LIFETIME ♾️"
+			USER_EXPIRED or "-"
 		)
 		elseif USER_EXPIRED == "LIFETIME" then
         info = string.format(
-            "👤 %s\n📅 %s\n⏳ %s\n", 
+            "👤 %s\n📅 %s\n⏳ %s", 
             USER_NAME or "-",
 			getDateTime(),
-			"LIFETIME ♾️"
+			USER_EXPIRED or "-"
 		)
     else
         info = string.format(
-            "👤 %s\n📅 %s\n⏳ %s\n",
+            "👤 %s\n📅 %s\n⏳ %s",
             USER_NAME or "-",
 			getDateTime(),
             USER_EXPIRED.."| "..GetRemainingTime(USER_EXPIRED or "")
@@ -381,6 +218,7 @@ end
 
     gg.alert("✨️ UNLIMITED SEND AND CONVERT CARD DONE!!\n"..
 	        "Author : RDHT RMDN")
+	Menu_Card()
 end
 
 function Change_Quantity()
@@ -453,6 +291,7 @@ function Change_Quantity()
 	    "🔍 TOTAL RESULTS : " .. totalFound .. "\n" .. 
 		"Author : RDHT RMDN"
 	)
+	Menu_Card()
 end
 
 function Change_Quantity_Instan()
@@ -460,43 +299,37 @@ function Change_Quantity_Instan()
     gg.setVisible(false)
     gg.setRanges(gg.REGION_C_ALLOC | gg.REGION_ANONYMOUS | gg.REGION_OTHER)
 
-    local input = gg.prompt(
-        {
-            "📝 LOWER LIMIT :",
-            "📝 UPPER LIMIT (MAX 1000) :",
-            "📝 NEW CARD COUNT :"
-        },
-        {
-            1,
-            1,
-            500
-        },
-        {
-            "number",
-            "number",
-            "number"
-        }
-    )
+   local input = gg.prompt(
+{
+    "📝 CARD ID (contoh: 1;2;3;10;100)",
+    "📝 NEW CARD COUNT :"
+},
+{
+    "1;2;3",
+    500
+},
+{
+    "text",
+    "number"
+})
 
-    if not input then
-        gg.toast("❌ INPUT DIBATALKAN")
-        return
-    end
+if not input then
+    gg.toast("❌ INPUT DIBATALKAN")
+    return
+end
 
-    local bawah = tonumber(input[1])
-    local atas = tonumber(input[2])
-    local ganti = tonumber(input[3])
+local list = {}
+for num in string.gmatch(input[1], "%d+") do
+    table.insert(list, tonumber(num))
+end
 
-    if not bawah or not atas or not ganti then
-        gg.alert("❌ INVALID INPUT")
-        return
-    end
+local ganti = tonumber(input[2])
 
-    if bawah < 1 or atas > 1000 or bawah > atas then
-        gg.alert("❌ BATAS HARUS 1 - 1000")
-        return
-    end
-
+if #list == 0 then
+    gg.alert("❌ DAFTAR ANGKA KOSONG")
+    return
+end 
+	
     local anchors = {
         1918984974,
         1918984976
@@ -504,7 +337,7 @@ function Change_Quantity_Instan()
 
     local totalFound = 0
 
-    for cari = bawah, atas do
+   for _, cari in ipairs(list) do
 
         -- Skip angka 6
         if cari ~= 6 then
@@ -533,15 +366,176 @@ function Change_Quantity_Instan()
 
     gg.clearResults()
 
+local cardList = table.concat(list, ";")
+
 gg.alert(
     "✅ COMPLETED\n" ..
-    "📝 CURRENT CARD COUNT : " .. bawah .. " → " .. atas .. "\n" ..
+    "📝 CARD ID : " .. cardList .. "\n" ..
     "📝 NEW CARD COUNT : " .. ganti .. "\n" ..
     "🔍 TOTAL RESULTS : " .. totalFound .. "\n" ..
-	"Author : RDHT RMDN"
+    "Author : RDHT RMDN"
 )
+Menu_Card()
 end
 
+local XP_ITEM = {
+    PENDANT           = {1852141582, 1953390948, 0, 0, 0, 0},
+    RING              = {1852404232, 103, 0, 0, 0, 0},
+    PEARL_CHOKER      = {1634037778, 1701735538, 27491, 0, 0, 0},
+    EARRINGS          = {1918985488, 1735289202, 115, 0, 0, 0},
+    DIADEM            = {1634296844, 7169380, 13407, 0, 0, 0},
+    FEATHER_EAR_RINGS = {1634035230, 1919248500, 1920098629, 1936158313, 0, 0},
+}
+
+function XP_Train(itemName)
+
+    local item = XP_ITEM[itemName]
+    if not item then
+        gg.alert("Item tidak ditemukan : "..tostring(itemName))
+        return
+    end
+
+    local input = gg.prompt(
+        {"Masukkan jumlah "..itemName.." : (Maks 500)"},
+        {"1"},
+        {"number"}
+    )
+
+    if not input then return end
+
+    local amount = tonumber(input[1])
+    if amount == nil or amount < 1 or amount > 500 then
+        gg.alert("Hanya bisa angka 1 sampai 500")
+        return
+    end
+
+    gg.toast("Loading...")
+    gg.processResume()
+    gg.clearResults()
+
+    gg.searchNumber("1600407924;51", gg.TYPE_DWORD)
+    gg.refineNumber("51", gg.TYPE_DWORD)
+
+    local result = gg.getResults(3)
+
+    if #result == 0 then
+        gg.alert("Anchor tidak ditemukan")
+        return
+    end
+
+    for _, r in ipairs(result) do
+        local base = r.address
+
+        gg.setValues({
+            {
+                address = base + 0x34,
+                flags = gg.TYPE_FLOAT,
+                value = 3
+            }
+        })
+
+        for g = 0,4 do
+
+            local shift = g * 76 * 4
+
+            local values = {
+                {
+                    address = base - (85 * 4) - shift,
+                    flags = gg.TYPE_DWORD,
+                    value = 1
+                },
+                {
+                    address = base - (96 * 4) - shift,
+                    flags = gg.TYPE_DWORD,
+                    value = amount
+                },
+                {
+                    address = base - (97 * 4) - shift,
+                    flags = gg.TYPE_DWORD,
+                    value = 0
+                }
+            }
+
+            local offset = 103
+            for _, v in ipairs(item) do
+                table.insert(values,{
+                    address = base - (offset * 4) - shift,
+                    flags = gg.TYPE_DWORD,
+                    value = v
+                })
+                offset = offset - 1
+            end
+
+            gg.setValues(values)
+        end
+    end
+
+    gg.toast(itemName.." ACTIVATED")
+end
+
+function Items_Train()
+    gg.clearResults()
+
+    local GIFT = ""
+
+    local function pretty(t)
+        return GIFT .. "  " .. t
+    end
+
+    local menu = {
+        {
+            label = pretty("📿 • PENDANT | LIONTIN"),
+            func = function()
+                XP_Train("PENDANT")
+            end
+        },
+        {
+            label = pretty("💍 • RING | CINCIN"),
+            func = function()
+                XP_Train("RING")
+            end
+        },
+        {
+            label = pretty("🦪 • PEARL CHOKER | KALUNG MUTIARA"),
+            func = function()
+                XP_Train("PEARL_CHOKER")
+            end
+        },
+        {
+            label = pretty("✨ • EARRINGS | ANTING"),
+            func = function()
+                XP_Train("EARRINGS")
+            end
+        },
+        {
+            label = pretty("👑 • DIADEM | MAHKOTA"),
+            func = function()
+                XP_Train("DIADEM")
+            end
+        },
+        {
+            label = pretty("🪶 • FEATHER EAR RINGS | ANTING BULU"),
+            func = function()
+                XP_Train("FEATHER_EAR_RINGS")
+            end
+        },
+    }
+
+    local labels = {}
+    for i, v in ipairs(menu) do
+        labels[i] = v.label
+    end
+
+    local choice = gg.choice(labels, nil, "🎯CHOOSE ITEMS")
+
+    if not choice then
+        gg.toast("SELECT CARD")
+        gg.setVisible(false)
+        return
+    end
+
+    menu[choice].func()
+end
 function Exit_Script()
 
     local saved = gg.getListItems()
@@ -577,39 +571,55 @@ function LoadingAuto(text, speed)
     end
 end
 function menuUtama()
-if not USER_LOADED then
+    if not USER_LOADED then
         Load_User_Info()
         USER_LOADED = true
     end
-	local Header
 
-if USER_EXPIRED == "SAMPAI DIA CAPE DAN PERGI" then
-    Header =
-    " 💻 SCRIPT By RR | RDHT\n" ..
-    " 🤝 SUPPORTED By : MF HOST\n" ..
-    "════════════════\n"
-else
-    Header =
-    " 💻SCRIPT BY RR | RDHT\n" ..
-    "════════════════\n"
-	end
+    local Header
+
+    if USER_EXPIRED == "SAMPAI DIA CAPE DAN PERGI" then
+        Header =
+        " 💻 SCRIPT By IIM | RDHT\n" ..
+        " 🤝 SUPPORTED By : MF HOST\n" ..
+        "════════════════\n"
+    else
+        Header =
+        " 💻 SCRIPT BY IIM | RDHT\n" ..
+        "════════════════\n"
+    end
+
     local menu = gg.choice({
-        "✨ | UNLIMITED SEND (REGULAR|GOLD|LEGENDARY) ",
-        "✨ | CHANGE QUANTITY CARD",
-		"✨ | CHANGE QUANTITY CARD INSTAN",
+        "🎴 | CARD",
+        "👑 | EXP TRAIN (+ EXP AND COINS)",
         "🔚 | BACK"
-    }, nil, 
-Header .. Get_Account_Info())
-    
+    }, nil, Header .. Get_Account_Info())
+
     if menu == 1 then
-    Unlimited_Send()
-elseif menu == 2 then
-    Change_Quantity()
-elseif menu == 3 then
-    Change_Quantity_Instan()
-elseif menu == 4 then
-    Exit_Script()
+        Menu_Card()
+    elseif menu == 2 then
+        Items_Train()
+    elseif menu == 3 then
+        Exit_Script()
+    end
 end
+function Menu_Card()
+    local menu = gg.choice({
+        "🎴 | UNLIMITED SEND (REGULAR | GOLD | LEGENDARY)",
+        "🎴 | CHANGE QUANTITY CARD",
+        "🎴 | CHANGE QUANTITY CARD INSTAN",
+        "🔙 | BACK"
+    }, nil, "🎴 CARD MENU")
+
+    if menu == 1 then
+        Unlimited_Send()
+    elseif menu == 2 then
+        Change_Quantity()
+    elseif menu == 3 then
+        Change_Quantity_Instan()
+	elseif menu == 4 or menu == nil then
+	    menuUtama()
+	end
 end
 -- ============================
 -- FUNGSI KEMBALI KE MENU
