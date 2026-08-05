@@ -12,7 +12,7 @@ USER_NAME = "-"
 USER_EXPIRED = "-"
 USER_LOADED = false
 function Load_User_Info()
-    local url = "https://raw.githubusercontent.com/RDHT1010/RDHT_DATABASE/refs/heads/main/LICENSE_KEYS_CARD"
+    local url = "https://raw.githubusercontent.com/Oiim-TS/DATABASE/refs/heads/main/LK_CARD"
 
     local response = gg.makeRequest(url)
 
