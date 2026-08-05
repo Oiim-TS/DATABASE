@@ -217,7 +217,7 @@ end
     gg.addListItems(allResults)
 
     gg.alert("✨️ UNLIMITED SEND AND CONVERT CARD DONE!!\n"..
-	        "Author : RDHT RMDN")
+	        "Created By : RDHT|OIIM")
 	Menu_Card()
 end
 
@@ -289,7 +289,7 @@ function Change_Quantity()
 	    "📝 CURRENT CARD COUNT : " .. cari .. "\n" ..
 	    "📝 NEW CARD COUNT : " .. ganti .. "\n" ..
 	    "🔍 TOTAL RESULTS : " .. totalFound .. "\n" .. 
-		"Author : RDHT RMDN"
+		"Author : RDHT|OIIM"
 	)
 	Menu_Card()
 end
@@ -396,7 +396,7 @@ function XP_Train(itemName)
     end
 
     local input = gg.prompt(
-        {"Masukkan jumlah "..itemName.." : (Maks 500)"},
+        {"Masukkan jumlah "..itemName.." : |Maks 500"},
         {"1"},
         {"number"}
     )
@@ -470,7 +470,7 @@ function XP_Train(itemName)
         end
     end
 
-    gg.toast(itemName.." ACTIVATED")
+    gg.alert(itemName.." ACTIVATED".."\n".."Created By : OIIM")
 end
 
 function Items_Train()
