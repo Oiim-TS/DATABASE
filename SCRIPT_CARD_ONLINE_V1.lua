@@ -4,8 +4,6 @@ gg.alert([[
 	Jalankan ➞ Tunggu Loading ➞ Semua Kartu (Gold | Legendary) Siap dikirimkan Tanpa Batas
 2️⃣ CHANGE QUANTITY CARD 
 	Jalankan ➞ Masukkan Jumlah Card (Misal Card +1, maka input angka 2, Card +3, maka input 4) dst 
-3️⃣ CEK CHANGELOG SECARA BERKALA UNTUK MELIHAT UPDATE TERBARU
-    Jalankan ➞ Masukkan Jumlah Batas Atas dan Bawah ➞ Tunggu Loading
 ]])
 
 USER_NAME = "-"
